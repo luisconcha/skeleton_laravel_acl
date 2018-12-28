@@ -59,8 +59,12 @@ return [
     'permissions_assigned_successfully'   => 'Permisos asignados con éxito.',
     'unable_assign_permissions'           => 'No se pudo asignar permisos.',
     'can_not_auto_delete'                 => 'No se puede auto-borrar.',
+    'sign_in_to_start_your_session'       => 'Ingresa para iniciar sesión.',
+    'i_agree_to_the_terms'                => 'Acepto los términos.',
+    'i_already_have_a_membership'         => 'Já tengo registro.',
 
     'language_pt' => 'Portugués',
     'language_es' => 'Español',
     'language_en' => 'Ingles',
+
 ];

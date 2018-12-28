@@ -8,94 +8,82 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
-
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet">
+    <title>{{ config('app.name', 'Skeleton-Laravel-ACL') }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
-<div id="app">
-    <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
+<body class="hold-transition skin-blue sidebar-mini">
+<header class="main-header">
+    <!-- Logo -->
+    <a href="{{ route('home') }}" class="logo">
+        {{ config('app.name', 'Laravel') }}
+    </a>
+    <nav class="navbar navbar-static-top">
+        @guest
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="{{ __('Toggle navigation') }}">
-                <span class="navbar-toggler-icon"></span>
-            </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- Left Side Of Navbar -->
-                <ul class="navbar-nav mr-auto">
+            <ul class="nav navbar-nav pull-right">
+                <li class="dropdown active">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{__('lacc.change_language')}} <span
+                                class="caret"></span></a>
+                    <ul class="dropdown-menu pr-4" role="menu">
+                        <li><a class="dropdown-item" href="{{route('lang',['pt-br'])}}">{{ __('lacc.language_pt') }}</a>
+                        </li>
+                        <li><a class="dropdown-item" href="{{route('lang',['es'])}}">{{ __('lacc.language_es') }}</a>
+                        </li>
+                        <li><a class="dropdown-item" href="{{route('lang',['en'])}}">{{ __('lacc.language_en') }}</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="{{ route('login') }}">Login</a>
+                </li>
+            </ul>
 
-                </ul>
+        @else
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('users.index') }}">Usuários</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('roles.index') }}">Papeis</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('permissions.index') }}">Permissões</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    {{ Auth::user()->name }} <span class="caret"></span>
+                </a>
 
-                <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ml-auto">
-                    <!-- Authentication Links -->
-                    @guest
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('lacc.login') }}</a>
-                        </li>
-                    @else
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('users.index') }}">{{ __('lacc.user_list') }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('roles.index') }}">{{ __('lacc.role_list') }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('permissions.index') }}">{{ __('lacc.permission_list') }}</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                       onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    {{ __('lacc.logout') }}
-                                </a>
+                        {{ __('lacc.logout') }}
+                    </a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                      style="display: none;">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
-                    @endguest
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
-                           aria-haspopup="true" aria-expanded="false">{{__('lacc.change_language')}}</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{{route('lang',['pt-br'])}}">{{ __('lacc.language_pt') }}</a>
-                            <a class="dropdown-item" href="{{route('lang',['es'])}}">{{ __('lacc.language_es') }}</a>
-                            <a class="dropdown-item" href="{{route('lang',['en'])}}">{{ __('lacc.language_en') }}</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                          style="display: none;">
+                        @csrf
+                    </form>
+                </div>
+            </li>
+        @endguest
     </nav>
 
     <main class="py-4">
         @yield('content')
     </main>
-</div>
+</header>
+
+<!-- Scripts -->
+<script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>

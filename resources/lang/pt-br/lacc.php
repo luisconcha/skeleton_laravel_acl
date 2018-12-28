@@ -59,6 +59,9 @@ return [
     'permissions_assigned_successfully'   => 'Permissões atribuidas com sucesso.',
     'unable_assign_permissions'           => 'Não foi possivel atribuir as permissões.',
     'can_not_auto_delete'                 => 'Não é possivel se auto-deletar.',
+    'sign_in_to_start_your_session'       => 'Entre para iniciar sua sessão.',
+    'i_agree_to_the_terms'                => 'Concordo com os termos.',
+    'i_already_have_a_membership'         => 'Já tenho cadastro.',
 
     'language_pt' => 'Português',
     'language_es' => 'Espanhol',

@@ -3,7 +3,7 @@
 
 ## Skeleton Laravel 5.6 with ACL and Permissions read by Annotations
 
-###In development...
+### Project under development...
 
 
 
