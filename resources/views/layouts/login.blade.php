@@ -9,8 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Skeleton-Laravel-ACL') }}</title>
-    
-    <link rel="stylesheet" href="http://localhost/AdminLTE/plugins/iCheck/square/blue.css">
+
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">

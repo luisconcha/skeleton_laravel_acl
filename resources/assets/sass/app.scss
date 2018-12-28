@@ -4,11 +4,18 @@
 @import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 // Variables
 @import 'variables';
+
+$fa-font-path: '../webfonts';
+
 // Bootstrap
 @import '~bootstrap/dist/css/bootstrap.min.css';
-//template admin-lte
+////template admin-lte
 @import "~admin-lte/dist/css/AdminLTE.min.css";
-@import "~admin-lte/dist/css/skins/_all-skins.css";
+@import "~admin-lte/dist/css/skins/_all-skins.min.css";
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/brands.scss";
+
 
 .navbar-laravel {
   background-color: #fff;

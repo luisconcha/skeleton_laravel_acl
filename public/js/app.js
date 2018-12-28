@@ -1014,9 +1014,9 @@ try {
   window.$ = window.jQuery = __webpack_require__(15);
 
   __webpack_require__(16);
+  __webpack_require__(29);
 } catch (e) {}
 
-__webpack_require__(29);
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
