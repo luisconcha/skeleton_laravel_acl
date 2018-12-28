@@ -69,13 +69,13 @@ class PermissionController extends Controller
     public function create()
     {
         $routeName   = $this->route;
-        $page        = 'FRM de cadastro de permissions';
-        $page_create = 'permissions';
+        $page        = trans( 'lacc.permission_list' );
+        $page_create = trans( 'lacc.permission' );
 
         $breadcrumb = [
-            [ 'home', 'Pagina Home' ],
-            [ $routeName . '.index', 'Lista de permissions' ],
-            [ '', 'Cadastro de permissions' ],
+            [ 'home', trans( 'lacc.home' ) ],
+            [ $routeName . '.index', trans( 'lacc.list', [ 'page' => $page ] ) ],
+            [ '', trans( 'lacc.create_crud', [ 'page' => $page_create ] ) ],
         ];
         $breadcrumb = create_breadcrumb( $breadcrumb );
 
@@ -92,16 +92,15 @@ class PermissionController extends Controller
     public function store( Request $request )
     {
         $data = $request->all();
-
         $this->model->rules( $data );
 
         if ( $this->model->create( $data ) ) {
-            createMessage( 'msg', 'success', 'Cadastro salvo com sucesso!' );
+            createMessage( 'msg', 'success', trans( 'lacc.record_added_successfully' ) );
 
             return redirect()->back();
 
         } else {
-            createMessage( 'msg', 'danger', 'Error ao tentar salvar o registro!' );
+            createMessage( 'msg', 'danger', trans( 'lacc.record_adding_record' ) );
 
             return redirect()->back();
         }
@@ -118,21 +117,20 @@ class PermissionController extends Controller
         $routeName = $this->route;
         $register  = $this->model->find( $id );
         if ( $register ) {
-            $page  = 'Lista de permissões';
-            $page2 = 'permission';
-
+            $page  = trans( 'lacc.permission_list' );
+            $page2 = trans( 'lacc.permission' );
 
             $breadcrumb = [
-                [ 'home', 'Pagina Home' ],
-                [ $routeName . '.index', 'Lista de permission' ],
-                [ '', 'Detalhe de permissions' ],
+                [ 'home', trans( 'lacc.home' ) ],
+                [ $routeName . '.index', trans( 'lacc.list', [ 'page' => $page ] ) ],
+                [ '', trans( 'lacc.show_crud', [ 'page' => $page2 ] ) ],
             ];
             $breadcrumb = create_breadcrumb( $breadcrumb );
 
             $delete = false;
 
             if ( $request->delete ?? false ) {
-                createMessage( 'msg', 'danger', 'Deseja deletar o registro?' );
+                createMessage( 'msg', 'danger', trans( 'lacc.delete_this_record' ) );
                 $delete = true;
             }
 
@@ -156,13 +154,13 @@ class PermissionController extends Controller
         $register  = $this->model->find( $id );
 
         if ( $register ) {
-            $page  = 'Lista de permissões';
-            $page2 = 'permission';
+            $page  = trans( 'lacc.permission_list' );
+            $page2 = trans( 'lacc.permission' );
 
             $breadcrumb = [
-                [ 'home', 'Pagina Home' ],
-                [ $routeName . '.index', 'Lista de permissions' ],
-                [ '', 'Editar permissions' ],
+                [ 'home', trans( 'lacc.home' ) ],
+                [ $routeName . '.index', trans( 'lacc.list', [ 'page' => $page ] ) ],
+                [ '', trans( 'lacc.edit_crud', [ 'page' => $page2 ] ) ],
             ];
             $breadcrumb = create_breadcrumb( $breadcrumb );
 
@@ -187,15 +185,12 @@ class PermissionController extends Controller
 
         $this->model->rules( $data );
 
-        if ( $this->model->update( $data, $id ) ) {
-            createMessage( 'msg', 'success', 'Editado com sucesso!' );
+        $this->model->update( $data, $id ) ?
+            createMessage( 'msg', 'success', trans( 'lacc.successfully_edited_record' ) )
+            :
+            createMessage( 'msg', 'danger', trans( 'lacc.error_while_changing_register' ) );
 
-            return redirect()->back();
-        } else {
-            createMessage( 'msg', 'danger', 'Error ao editar o registro!' );
-
-            return redirect()->back();
-        }
+        return redirect()->back();
     }
 
     /**
@@ -208,9 +203,9 @@ class PermissionController extends Controller
     public function destroy( $id )
     {
         if ( $this->model->delete( $id ) ) {
-            createMessage( 'msg', 'success', 'Deletado com sucesso!' );
+            createMessage( 'msg', 'success', trans( 'lacc.registration_deleted_successfully' ) );
         } else {
-            createMessage( 'msg', 'danger', 'Error ao deletar!' );
+            createMessage( 'msg', 'danger', trans( 'lacc.error_deleting_the_registry' ) );
         }
         $routeName = $this->route;
 

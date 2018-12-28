@@ -40,9 +40,9 @@
     </div>
     <div class="form-group col-12">
         <label for="description">{{ __('lacc.resource_description') }}</label>
-        <input type="resource_description" name="resource_description"
+        <input type="text" name="resource_name"
                placeholder="{{ __('lacc.resource_description') }}"
-               value="{{ old('resource_description') ?? ($register->resource_description ?? '')}}"
+               value="{{ old('resource_description') ?? ($register->resource_name ?? '')}}"
                class="form-control">
     </div>
 </div>

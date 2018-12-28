@@ -28,7 +28,7 @@ class PermissionRepository extends AbstractRepository implements PermissionRepos
         $idPermission = ( \Request::segment( 3 ) ) ? : null;
 
         return Validator::make( $data, [
-            'name'                 => 'required|string|max:255|min:3',
+            'name'                 => "required|string|max:255|min:3",
             'description'          => 'string|max:255',
             'resource_description' => 'string|max:255',
         ] )->validate();

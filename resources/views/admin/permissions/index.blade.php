@@ -14,7 +14,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Index permissions</h1>
+    <h1>{{ $page }}</h1>
+
+    @if (session('msg'))
+        <div class="alert alert-{{ session('status') }}" role="alert">
+            {{ session('msg') }}
+        </div>
+    @endif
 
     @if($breadcrumb)
 

@@ -50,7 +50,7 @@
                         <p>{{ __('lacc.name') }}: {{ $register->name }}</p>
                         <p>{{ __('lacc.description') }}: {{ $register->description }}</p>
                         <p>{{ __('lacc.description') }}: {{ $register->description }}</p>
-                        <p>{{ __('lacc.resource_description') }}: {{ $register->resource_description }}</p>
+                        <p>{{ __('lacc.resource_description') }}: {{ $register->resource_name }}</p>
 
 
                         @if($delete)
