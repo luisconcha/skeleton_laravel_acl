@@ -93,7 +93,7 @@
                     @if ($user->id == \Auth::user()->id)
                         <a href="#"
                            class="btn btn-default btn-outline btn-xs disabled">
-                            <strong>Can not Delete user</strong>
+                            <strong>{{ __('lacc.can_not_auto_delete') }}</strong>
                         </a>
                     @else
                         <a href="{{ route($routeName.'.show',[$user->id, 'delete=1']) }}">

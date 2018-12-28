@@ -47,21 +47,17 @@
                     <!-- Authentication Links -->
                     @guest
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">Usuários</a>
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('lacc.login') }}</a>
                         </li>
                     @else
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('users.index') }}">Usuários</a>
+                            <a class="nav-link" href="{{ route('users.index') }}">{{ __('lacc.user_list') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('roles.index') }}">Papeis</a>
+                            <a class="nav-link" href="{{ route('roles.index') }}">{{ __('lacc.role_list') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('permissions.index') }}">Permissões</a>
+                            <a class="nav-link" href="{{ route('permissions.index') }}">{{ __('lacc.permission_list') }}</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -73,7 +69,7 @@
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                                    {{ __('lacc.logout') }}
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -87,9 +83,9 @@
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                            aria-haspopup="true" aria-expanded="false">{{__('lacc.change_language')}}</a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{{route('lang',['pt-br'])}}">Português</a>
-                            <a class="dropdown-item" href="{{route('lang',['es'])}}">Español</a>
-                            <a class="dropdown-item" href="{{route('lang',['en'])}}">Ingles</a>
+                            <a class="dropdown-item" href="{{route('lang',['pt-br'])}}">{{ __('lacc.language_pt') }}</a>
+                            <a class="dropdown-item" href="{{route('lang',['es'])}}">{{ __('lacc.language_es') }}</a>
+                            <a class="dropdown-item" href="{{route('lang',['en'])}}">{{ __('lacc.language_en') }}</a>
                         </div>
                     </li>
                 </ul>

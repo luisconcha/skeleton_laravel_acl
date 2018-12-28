@@ -50,7 +50,7 @@
 
                             @include('admin.'.$routeName.'.form')
 
-                            <button class="btn btn-primary btn-lg float-right">ADD</button>
+                            <button class="btn btn-primary btn-lg float-right">{{ __('lacc.add') }}</button>
                         </form>
 
 

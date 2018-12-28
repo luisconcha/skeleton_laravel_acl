@@ -50,7 +50,13 @@
                             @method('PUT')
                             @include('admin.'.$routeName.'.form')
 
-                            <button class="btn btn-primary btn-lg float-right">ADD</button>
+                            <a class="btn btn-danger ml-2 btn-lg float-right"
+                               href="{{ route($routeName.'.permissions.edit',$register->id ) }}" title="sa">
+                                {{ __('lacc.edit_permissions') }}
+                            </a>
+
+                            <button class="btn btn-primary btn-lg float-right">{{ __('lacc.edit') }}</button>
+
                         </form>
 
 

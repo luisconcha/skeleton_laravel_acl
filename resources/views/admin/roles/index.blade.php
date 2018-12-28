@@ -14,7 +14,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Index roles</h1>
+    <h1>{{ __('lacc.role_list') }}</h1>
 
     @if($breadcrumb)
 

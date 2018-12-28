@@ -57,7 +57,7 @@ class UserController extends Controller
 
         $breadcrumb = [
             [ 'home', trans( 'lacc.home' ) ],
-            [ '', trans( 'lacc.list', [ 'page' => $page ] )  ],
+            [ '', trans( 'lacc.list', [ 'page' => $page ] ) ],
         ];
         $breadcrumb = create_breadcrumb( $breadcrumb );
 
@@ -72,14 +72,14 @@ class UserController extends Controller
     public function create()
     {
         $routeName   = $this->route;
-        $page        = 'FRM de cadastro de usuarios';
-        $page_create = 'usuarios';
+        $page        = trans( 'lacc.user_list' );
+        $page_create = trans( 'lacc.user' );
         $roles       = $this->modelRole->all( 'name' );
 
         $breadcrumb = [
-            [ 'home', 'Pagina Home' ],
-            [ $routeName . '.index', 'Lista de usuarios' ],
-            [ '', 'Cadastro de usuarios' ],
+            [ 'home', trans( 'lacc.home' ) ],
+            [ $routeName . '.index', trans( 'lacc.list', [ 'page' => $page ] ) ],
+            [ '', trans( 'lacc.create_crud', [ 'page' => $page_create ] ) ],
         ];
         $breadcrumb = create_breadcrumb( $breadcrumb );
 
@@ -100,12 +100,12 @@ class UserController extends Controller
         $this->model->rules( $data );
 
         if ( $this->model->create( $data ) ) {
-            createMessage( 'msg', 'success', 'Cadastro salvo com sucesso!' );
+            createMessage( 'msg', 'success', trans( 'lacc.record_added_successfully' ) );
 
             return redirect()->back();
 
         } else {
-            createMessage( 'msg', 'danger', 'Error ao tentar salvar o registro!' );
+            createMessage( 'msg', 'danger', trans( 'lacc.record_adding_record' ) );
 
             return redirect()->back();
         }
@@ -122,21 +122,20 @@ class UserController extends Controller
         $routeName = $this->route;
         $register  = $this->model->find( $id );
         if ( $register ) {
-            $page  = 'Lista de usuários';
-            $page2 = 'usuario';
-
+            $page  = trans( 'lacc.user_list' );
+            $page2 = trans( 'lacc.user' );
 
             $breadcrumb = [
-                [ 'home', 'Pagina Home' ],
-                [ $routeName . '.index', 'Lista de usuario' ],
-                [ '', 'Detalhe de usuarios' ],
+                [ 'home', trans( 'lacc.home' ) ],
+                [ $routeName . '.index', trans( 'lacc.list', [ 'page' => $page ] ) ],
+                [ '', trans( 'lacc.show_crud', [ 'page' => $page2 ] ) ],
             ];
             $breadcrumb = create_breadcrumb( $breadcrumb );
 
             $delete = false;
 
             if ( $request->delete ?? false ) {
-                createMessage( 'msg', 'danger', 'Deseja deletar o registro?' );
+                createMessage( 'msg', 'danger', trans( 'lacc.delete_this_record' ) );
                 $delete = true;
             }
 
@@ -161,13 +160,13 @@ class UserController extends Controller
         $roles     = $this->modelRole->all( 'name' );
 
         if ( $register ) {
-            $page  = 'Lista de usuários';
-            $page2 = 'usuario';
+            $page  = trans( 'lacc.user_list' );
+            $page2 = trans( 'lacc.user' );
 
             $breadcrumb = [
-                [ 'home', 'Pagina Home' ],
-                [ $routeName . '.index', 'Lista de usuarios' ],
-                [ '', 'Editar usuarios' ],
+                [ 'home', trans( 'lacc.home' ) ],
+                [ $routeName . '.index', trans( 'lacc.list', [ 'page' => $page ] ) ],
+                [ '', trans( 'lacc.edit_crud', [ 'page' => $page2 ] ) ],
             ];
             $breadcrumb = create_breadcrumb( $breadcrumb );
 
@@ -202,9 +201,9 @@ class UserController extends Controller
             $this->model->rules( $data );
 
             $this->model->update( $data, $id ) ?
-                createMessage( 'msg', 'success', 'Editado com sucesso!' )
+                createMessage( 'msg', 'success', trans( 'lacc.successfully_edited_record' ) )
                 :
-                createMessage( 'msg', 'danger', 'Error ao editar o registro!' );
+                createMessage( 'msg', 'danger', trans( 'lacc.error_while_changing_register' ) );
 
         }
 
@@ -223,17 +222,17 @@ class UserController extends Controller
         try {
 
             if ( $this->model->isUserAdmin( $id ) ) {
-                $txtMsg = "Não é possivel deletar o usuário: " . config( 'acl_annotations.user.admin' );
+                $txtMsg = trans( 'lacc.unable_to_delete_administrator_role', [ 'role_name' => config( 'acl_annotations.user.admin' ) ] );
                 createMessage( 'msg', 'danger', $txtMsg );
 
             } else {
                 $this->model->delete( $id );
-                createMessage( 'msg', 'success', 'Deletado com sucesso!' );
+                createMessage( 'msg', 'success', trans( 'lacc.registration_deleted_successfully' ) );
             }
 
 
         } catch ( QueryException $e ) {
-            $txtMsg = 'Não é possivel deletar a role por que ela esta relacionada com outros registros!';
+            createMessage( 'msg', 'danger', trans( 'lacc.impossible_delete_the_record' ) );
             createMessage( 'msg', 'danger', $txtMsg );
         }
 

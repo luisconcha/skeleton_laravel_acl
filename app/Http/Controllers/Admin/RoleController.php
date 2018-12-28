@@ -41,12 +41,12 @@ class RoleController extends Controller
     public function index( Request $request )
     {
         $search     = "";
-        $page       = 'Lista de Roles';
+        $page       = trans( 'lacc.role_list' );
         $routeName  = $this->route;
         $columnList = [
             'id'          => '#',
-            'name'        => 'nome',
-            'description' => 'description',
+            'name'        => trans( 'lacc.name' ),
+            'description' => trans( 'lacc.description' ),
         ];
 
         if ( isset( $request->search ) ) {
@@ -59,8 +59,8 @@ class RoleController extends Controller
 
 
         $breadcrumb = [
-            [ 'home', 'Pagina Home' ],
-            [ '', 'Lista de roles' ],
+            [ 'home', trans( 'lacc.home' ) ],
+            [ '', trans( 'lacc.list', [ 'page' => $page ] ) ],
         ];
         $breadcrumb = create_breadcrumb( $breadcrumb );
 
@@ -75,13 +75,13 @@ class RoleController extends Controller
     public function create()
     {
         $routeName   = $this->route;
-        $page        = 'FRM de cadastro de roles';
-        $page_create = 'roles';
+        $page        = trans( 'lacc.role_list' );
+        $page_create = trans( 'lacc.role' );
 
         $breadcrumb = [
-            [ 'home', 'Pagina Home' ],
-            [ $routeName . '.index', 'Lista de roles' ],
-            [ '', 'Cadastro de roles' ],
+            [ 'home', trans( 'lacc.home' ) ],
+            [ $routeName . '.index', trans( 'lacc.list', [ 'page' => $page ] ) ],
+            [ '', trans( 'lacc.create_crud', [ 'page' => $page_create ] ) ],
         ];
         $breadcrumb = create_breadcrumb( $breadcrumb );
 
@@ -102,12 +102,12 @@ class RoleController extends Controller
         $this->model->rules( $data );
 
         if ( $this->model->create( $data ) ) {
-            createMessage( 'msg', 'success', 'Cadastro salvo com sucesso!' );
+            createMessage( 'msg', 'success', trans( 'lacc.record_added_successfully' ) );
 
             return redirect()->back();
 
         } else {
-            createMessage( 'msg', 'danger', 'Error ao tentar salvar o registro!' );
+            createMessage( 'msg', 'danger', trans( 'lacc.record_adding_record' ) );
 
             return redirect()->back();
         }
@@ -124,21 +124,20 @@ class RoleController extends Controller
         $routeName = $this->route;
         $register  = $this->model->find( $id );
         if ( $register ) {
-            $page  = 'Lista de roles';
-            $page2 = 'role';
-
+            $page  = trans( 'lacc.role_list' );
+            $page2 = trans( 'lacc.role' );
 
             $breadcrumb = [
-                [ 'home', 'Pagina Home' ],
-                [ $routeName . '.index', 'Lista de role' ],
-                [ '', 'Detalhe de roles' ],
+                [ 'home', trans( 'lacc.home' ) ],
+                [ $routeName . '.index', trans( 'lacc.list', [ 'page' => $page ] ) ],
+                [ '', trans( 'lacc.show_crud', [ 'page' => $page2 ] ) ],
             ];
             $breadcrumb = create_breadcrumb( $breadcrumb );
 
             $delete = false;
 
             if ( $request->delete ?? false ) {
-                createMessage( 'msg', 'danger', 'Deseja deletar o registro?' );
+                createMessage( 'msg', 'danger', trans( 'lacc.delete_this_record' ) );
                 $delete = true;
             }
 
@@ -162,13 +161,13 @@ class RoleController extends Controller
         $register  = $this->model->find( $id );
 
         if ( $register ) {
-            $page  = 'Lista de roles';
-            $page2 = 'role';
+            $page  = trans( 'lacc.role_list' );
+            $page2 = trans( 'lacc.role' );
 
             $breadcrumb = [
-                [ 'home', 'Pagina Home' ],
-                [ $routeName . '.index', 'Lista de roles' ],
-                [ '', 'Editar roles' ],
+                [ 'home', trans( 'lacc.home' ) ],
+                [ $routeName . '.index', trans( 'lacc.list', [ 'page' => $page ] ) ],
+                [ '', trans( 'lacc.edit_crud', [ 'page' => $page2 ] ) ],
             ];
             $breadcrumb = create_breadcrumb( $breadcrumb );
 
@@ -202,9 +201,9 @@ class RoleController extends Controller
 
         } else {
             $this->model->update( $data, $id ) ?
-                createMessage( 'msg', 'success', 'Editado com sucesso!' )
+                createMessage( 'msg', 'success', trans( 'lacc.successfully_edited_record' ) )
                 :
-                createMessage( 'msg', 'danger', 'Error ao editar o registro!' );
+                createMessage( 'msg', 'danger', trans( 'lacc.error_while_changing_register' ) );
         }
 
         return redirect()->back();
@@ -222,18 +221,17 @@ class RoleController extends Controller
         try {
 
             if ( $this->model->isRoleAdmin( $id ) ) {
-                $txtMsg = "Não é possivel deletar o perfil: " . config( 'acl_annotations.user.admin' );
+                $txtMsg = trans( 'lacc.unable_to_delete_administrator_role', [ 'role_name' => config( 'acl_annotations.user.admin' ) ] );
                 createMessage( 'msg', 'danger', $txtMsg );
 
             } else {
                 $this->model->delete( $id );
-                createMessage( 'msg', 'success', 'Deletado com sucesso!' );
+                createMessage( 'msg', 'success', trans( 'lacc.registration_deleted_successfully' ) );
             }
 
 
         } catch ( QueryException $e ) {
-            $txtMsg = 'Não é possivel deletar a role por que ela esta relacionada com outros registros!';
-            createMessage( 'msg', 'danger', $txtMsg );
+            createMessage( 'msg', 'danger', trans( 'lacc.registration_related_to_another' ) );
         }
 
         $routeName = $this->route;
@@ -250,22 +248,22 @@ class RoleController extends Controller
      */
     public function editPermissions( $id )
     {
-        $role        = $this->model->find( $id );
-        $routeName   = $this->route;
-        $page        = 'FRM de cadastro de roles';
-        $page_create = 'roles';
+        $role      = $this->model->find( $id );
+        $routeName = $this->route;
+        $page      = trans( 'lacc.role' );
+        $page2     = trans( 'lacc.edit_permissions' );
 
         $permissions      = $this->modelPermissionRepository->findPermissionsResources();
         $permissionsGroup = $this->modelPermissionRepository->findPermissionsGroup();
 
         $breadcrumb = [
-            [ 'home', 'Pagina Home' ],
-            [ $routeName . '.index', 'Lista de roles' ],
-            [ '', 'Editar Permissions' ],
+            [ 'home', trans( 'lacc.home' ) ],
+            [ $routeName . '.index', trans( 'lacc.list', [ 'page' => $page ] ) ],
+            [ '', trans( 'lacc.edit_permissions' ) ],
         ];
         $breadcrumb = create_breadcrumb( $breadcrumb );
 
-        return view( 'admin.' . $routeName . '.permissions', compact( 'page', 'page_create', 'routeName', 'breadcrumb', 'role', 'permissions', 'permissionsGroup' ) );
+        return view( 'admin.' . $routeName . '.permissions', compact( 'page', 'routeName', 'breadcrumb', 'role', 'permissions', 'permissionsGroup' ) );
 
     }
 
@@ -283,9 +281,9 @@ class RoleController extends Controller
         $this->model->rulesPermissions( $data );
 
         $this->model->updatePermissions( $data, $id ) ?
-            createMessage( 'msg', 'success', 'Permissões atribuidas com sucesso!' )
+            createMessage( 'msg', 'success', trans('lacc.permissions_assigned_successfully') )
             :
-            createMessage( 'msg', 'danger', 'Não foi possivel atribuir as permissões!' );
+            createMessage( 'msg', 'danger',  trans('lacc.unable_assign_permissions') );
 
 
         return redirect()->back();
