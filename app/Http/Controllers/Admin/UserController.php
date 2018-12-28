@@ -38,7 +38,7 @@ class UserController extends Controller
     public function index( Request $request )
     {
         $search     = "";
-        $page       = 'Lista de usuarios';
+        $page       = trans( 'lacc.user_list' );
         $routeName  = $this->route;
         $columnList = [
             'id'    => '#',
@@ -56,8 +56,8 @@ class UserController extends Controller
         }
 
         $breadcrumb = [
-            [ 'home', trans('lacc.home') ],
-            [ '', 'Lista de usuarios' ],
+            [ 'home', trans( 'lacc.home' ) ],
+            [ '', trans( 'lacc.list', [ 'page' => $page ] )  ],
         ];
         $breadcrumb = create_breadcrumb( $breadcrumb );
 

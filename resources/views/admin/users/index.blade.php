@@ -14,7 +14,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Index users</h1>
+    <h1>{{ $page }}</h1>
 
     @if($breadcrumb)
 
