@@ -11,28 +11,28 @@
  */
 ?>
 
-@extends('layouts.app')
+@extends('layouts.admin.app')
+
+@push('styles')
+    <style type="text/css">
+        table > thead > tr > th:nth-child(2) {
+            width: 30%;
+        }
+
+        table > thead > tr > th:nth-child(4) {
+            width: 30%;
+        }
+
+        table > thead > tr > th:nth-child(5) {
+            width: 15%;
+        }
+    </style>
+
+    <link rel="stylesheet"
+          href="http://localhost/AdminLTE/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+@endpush
 
 @section('content')
-    <h1>{{ $page }}</h1>
-
-    @if($breadcrumb)
-
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-
-                @foreach($breadcrumb as $key => $value)
-                    @if($value->url)
-                        <li class="breadcrumb-item"><a href="{{route($value->url)}}">{{ $value->title }}</a></li>
-
-                    @else
-                        <li class="breadcrumb-item active" aria-current="page">{{ $value->title }}</li>
-                    @endif
-                @endforeach
-            </ol>
-        </nav>
-
-    @endif
 
     @if (session('msg'))
         <div class="alert alert-{{ session('status') }}" role="alert">
@@ -40,80 +40,129 @@
         </div>
     @endif
 
-    <form class="form-inline" method="GET" action="{{route($routeName.'.index')}}">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <div>
+                        @if($breadcrumb)
+                            <section class="content-header">
+                                <h1>{{ $page }}</h1>
+                                <ol class="breadcrumb">
+                                    @foreach($breadcrumb as $key => $value)
+                                        @if($value->url)
+                                            <li class="breadcrumb-item"><a
+                                                        href="{{route($value->url)}}">{{ $value->title }}</a></li>
 
-        <div class="form-group mb-2">
-            <a href="{{ route($routeName.'.create')  }}">@lang('lacc.new_record')</a>
-        </div>
+                                        @else
+                                            <li class="breadcrumb-item active"
+                                                aria-current="page">{{ $value->title }}</li>
+                                        @endif
+                                    @endforeach
+                                </ol>
+                            </section>
 
-        <div class="form-group mx-sm-3 mb-2">
-            <input type="search" name="search" value="{{$search}}" class="form-control"
-                   placeholder="@lang('lacc.search')">
-        </div>
-        <button type="submit" class="btn btn-primary mb-2">@lang('lacc.search')</button>
-        <a href="{{ route($routeName.'.index') }}"
-           class="btn btn-warning mb-2 ml-2">@lang('lacc.clear')</a>
-    </form>
+                        @endif
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
 
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            @foreach($columnList as $key => $v)
-                <th scope="col">{{ $v }}</th>
-            @endforeach
-            <th scope="col">@lang('lacc.actions')</th>
-        </tr>
-        </thead>
-        <tbody>
-        @forelse($list as $k => $user)
-            <tr>
-                <td>{{ $user->id }}</td>
-                <td>{{ $user->name }}</td>
-                <td>{{ $user->email }}</td>
-                <td>
+                    @if($list)
+                        <div>
+                            <form class="form-inline" method="GET" action="{{route($routeName.'.index')}}">
 
-                    @foreach ($user->roles as $role)
-                        @php $isAdmin = $role->name == config('acl_annotations.user.admin'); @endphp
-                        <span class="badge badge-{{$isAdmin ? 'danger': 'secondary'}}">
-                        {{ $role->name }}
-                    </span>
-                    @endforeach
+                                <div class="form-group mb-2">
+                                    <a href="{{ route($routeName.'.create')  }}">@lang('lacc.new_record')</a>
+                                </div>
 
-
-                </td>
-                <td>
-                    <a href="{{ route($routeName.'.show',$user->id) }}">
-                        <i style="color:black" class="material-icons">pageview</i>
-                    </a>
-
-                    <a href="{{ route($routeName.'.edit',$user->id) }}">
-                        <i style="color:orange" class="material-icons">edit</i>
-                    </a>
-
-                    @if ($user->id == \Auth::user()->id)
-                        <a href="#"
-                           class="btn btn-default btn-outline btn-xs disabled">
-                            <strong>{{ __('lacc.can_not_auto_delete') }}</strong>
-                        </a>
-                    @else
-                        <a href="{{ route($routeName.'.show',[$user->id, 'delete=1']) }}">
-                            <i style="color:red" class="material-icons">delete_forever</i>
-                        </a>
+                                <div class="form-group mx-sm-3">
+                                    <input type="search" name="search" value="{{$search}}" class="form-control"
+                                           placeholder="@lang('lacc.search')">
+                                </div>
+                                <button type="submit" class="btn btn-primary">@lang('lacc.search')</button>
+                                <a href="{{ route($routeName.'.index') }}"
+                                   class="btn btn-info">@lang('lacc.clear')</a>
+                            </form>
+                        </div>
                     @endif
-                </td>
-            </tr>
-        @empty
-            <tr class="text-center">
-                <td colspan="4"><span class="label label-warning">There are no registered users</span></td>
-            </tr>
-        @endforelse
-        </tbody>
-    </table>
-    @if(!$search && $list)
-        <div class="paginate">
-            {{$list->links()}}
-        </div>
-    @endif
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            @foreach($columnList as $key => $v)
+                                <th scope="col">{{ $v }}</th>
+                            @endforeach
+                            <th scope="col">@lang('lacc.actions')</th>
+                        </tr>
+                        </thead>
+                        <tbody>
 
+                        @forelse($list as $k => $user)
+                            <tr>
+                                <td>{{ $user->id }}</td>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td>
+
+                                    @foreach ($user->roles as $role)
+                                        @php $isAdmin = $role->name == config('acl_annotations.user.admin'); @endphp
+                                        <small class="label {{$isAdmin ? 'bg-red': 'bg-light-blue-gradient'}}">
+                                            {{ $role->name }}
+                                        </small>
+                                    @endforeach
+                                </td>
+                                <td>
+                                    <a href="{{ route($routeName.'.show',$user->id) }}">
+                                        <i style="color: #ff851b;" class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
+
+                                    <a href="{{ route($routeName.'.edit',$user->id) }}">
+                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    </a>
+
+                                    @if ($user->id == \Auth::user()->id)
+                                        <a href="#"
+                                           class="disabled">
+                                            <strong>{{ __('lacc.can_not_auto_delete') }}</strong>
+                                        </a>
+                                    @else
+                                        <a href="{{ route($routeName.'.show',[$user->id, 'delete=1']) }}">
+                                            <i style="color: #990000;" class="fa fa-trash-o" aria-hidden="true"></i>
+                                        </a>
+                                    @endif
+                                </td>
+                            </tr>
+                        @empty
+                            <tr class="text-center">
+                                <td colspan="4">
+                                    <span class="label label-warning">{{ __('lacc.there_are_no_records') }}</span>
+                                </td>
+                            </tr>
+                        @endforelse
+                        </tbody>
+                    </table>
+
+                    @if(!$search && $list)
+                        <div class="paginate">
+                            {{$list->links()}}
+                        </div>
+                    @endif
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+
+        </div>
+        <!-- /.col -->
+    </div>
+
+@endsection
+
+@push('styles')
+
+@endpush
+
+
+@section('pos-script')
 
 @endsection

@@ -62,6 +62,7 @@ return [
     'sign_in_to_start_your_session'       => 'Entre para iniciar sua sessão.',
     'i_agree_to_the_terms'                => 'Concordo com os termos.',
     'i_already_have_a_membership'         => 'Já tenho cadastro.',
+    'there_are_no_records'                => 'Não há registros.',
 
     'language_pt' => 'Português',
     'language_es' => 'Espanhol',

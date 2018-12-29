@@ -11,11 +11,14 @@ $fa-font-path: '../webfonts';
 @import '~bootstrap/dist/css/bootstrap.min.css';
 ////template admin-lte
 @import "~admin-lte/dist/css/AdminLTE.min.css";
-@import "~admin-lte/dist/css/skins/_all-skins.min.css";
+@import "~admin-lte/dist/css/skins/_all-skins.css";
 @import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
-@import "~@fortawesome/fontawesome-free/scss/solid.scss";
 @import "~@fortawesome/fontawesome-free/scss/brands.scss";
 
+
+
+
+//https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css
 
 .navbar-laravel {
   background-color: #fff;

@@ -11,7 +11,7 @@
  */
 ?>
 
-@extends('layouts.app')
+@extends('layouts.admin.app')
 
 @section('content')
     <h1>{{ __('lacc.role_list') }}</h1>

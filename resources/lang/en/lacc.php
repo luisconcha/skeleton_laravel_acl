@@ -63,6 +63,7 @@ return [
     'sign_in_to_start_your_session'       => 'Sign in to start your session.',
     'i_agree_to_the_terms'                => 'I agree to the terms.',
     'i_already_have_a_membership'         => 'I already have a membership.',
+    'there_are_no_records'                => 'There are no records.',
 
 
     'language_pt' => 'Portuguese',

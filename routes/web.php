@@ -22,13 +22,13 @@ Route::get( 'lang/{param?}', function ( $param ) {
 
 } )->name( 'lang' );
 
-Route::get( '/', function () {
-    return view( 'welcome' );
-} );
 
 Auth::routes();
 
 Route::middleware( 'auth' )->group( function () {
+    Route::get( '/', function () {
+       return  redirect( 'home' );
+    } );
     Route::get( '/home', 'HomeController@index' )->name( 'home' );
 } );
 
