@@ -250,8 +250,8 @@ class RoleController extends Controller
     {
         $role      = $this->model->find( $id );
         $routeName = $this->route;
-        $page      = trans( 'lacc.role' );
-        $page2     = trans( 'lacc.edit_permissions' );
+        $page      = trans( 'lacc.edit_permissions' );
+        $page2     = 'Permissoes de: ';
 
         $permissions      = $this->modelPermissionRepository->findPermissionsResources();
         $permissionsGroup = $this->modelPermissionRepository->findPermissionsGroup();
@@ -263,7 +263,7 @@ class RoleController extends Controller
         ];
         $breadcrumb = create_breadcrumb( $breadcrumb );
 
-        return view( 'admin.' . $routeName . '.permissions', compact( 'page', 'routeName', 'breadcrumb', 'role', 'permissions', 'permissionsGroup' ) );
+        return view( 'admin.' . $routeName . '.permissions', compact( 'page', 'page2', 'routeName', 'breadcrumb', 'role', 'permissions', 'permissionsGroup' ) );
 
     }
 
@@ -281,9 +281,9 @@ class RoleController extends Controller
         $this->model->rulesPermissions( $data );
 
         $this->model->updatePermissions( $data, $id ) ?
-            createMessage( 'msg', 'success', trans('lacc.permissions_assigned_successfully') )
+            createMessage( 'msg', 'success', trans( 'lacc.permissions_assigned_successfully' ) )
             :
-            createMessage( 'msg', 'danger',  trans('lacc.unable_assign_permissions') );
+            createMessage( 'msg', 'danger', trans( 'lacc.unable_assign_permissions' ) );
 
 
         return redirect()->back();

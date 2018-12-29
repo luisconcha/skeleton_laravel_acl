@@ -63,6 +63,7 @@ return [
     'i_agree_to_the_terms'                => 'Concordo com os termos.',
     'i_already_have_a_membership'         => 'Já tenho cadastro.',
     'there_are_no_records'                => 'Não há registros.',
+    'resource_name'                       => 'Nome do recurso.',
 
     'language_pt' => 'Português',
     'language_es' => 'Espanhol',

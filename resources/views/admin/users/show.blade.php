@@ -20,11 +20,12 @@
                 </div>
 
                 @if (session('msg'))
-                    <div class="alert alert-{{ session('status') }}" role="alert">
+                    <div class="alert alert-{{ session('status') }} alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
                         {{ session('msg') }}
                     </div>
                 @endif
-
                 @if($breadcrumb)
 
                     <nav aria-label="breadcrumb">
@@ -64,7 +65,7 @@
                         @csrf
                         @method('DELETE')
 
-                        <button class="btn btn-danger btn-lg float-left">{{ __('lacc.delete') }}</button>
+                        <button class="btn btn-danger float-left">{{ __('lacc.delete') }}</button>
                     </form>
 
                 @else

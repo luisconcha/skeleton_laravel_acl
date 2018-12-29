@@ -27,19 +27,17 @@
             width: 15%;
         }
     </style>
-
-    <link rel="stylesheet"
-          href="http://localhost/AdminLTE/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 @endpush
 
 @section('content')
 
     @if (session('msg'))
-        <div class="alert alert-{{ session('status') }}" role="alert">
+        <div class="alert alert-{{ session('status') }} alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
             {{ session('msg') }}
         </div>
     @endif
-
     <div class="row">
         <div class="col-xs-12">
             <div class="box">

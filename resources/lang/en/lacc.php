@@ -37,7 +37,7 @@ return [
     'clear'                => 'Clear',
     'add'                  => 'Save',
     'edit'                 => 'Edit',
-    'edit_permissions'     => 'Alterar permissões',
+    'edit_permissions'     => 'Edit Permissions',
     'delete'               => 'Delete',
     'description'          => 'Description',
     'permission_list'      => 'Permissions',
@@ -64,6 +64,7 @@ return [
     'i_agree_to_the_terms'                => 'I agree to the terms.',
     'i_already_have_a_membership'         => 'I already have a membership.',
     'there_are_no_records'                => 'There are no records.',
+    'resource_name'                       => 'Resource name.',
 
 
     'language_pt' => 'Portuguese',

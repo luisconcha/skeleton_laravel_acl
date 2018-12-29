@@ -13,92 +13,130 @@
 
 @extends('layouts.admin.app')
 
+@push('styles')
+    <style type="text/css">
+        table > thead > tr > th:nth-child(2) {
+            width: 30%;
+        }
+
+        table > thead > tr > th:nth-child(4) {
+            width: 20%;
+        }
+
+        table > thead > tr > th:nth-child(5) {
+            width: 15%;
+        }
+    </style>
+@endpush
+
 @section('content')
-    <h1>{{ $page }}</h1>
 
     @if (session('msg'))
-        <div class="alert alert-{{ session('status') }}" role="alert">
+        <div class="alert alert-{{ session('status') }} alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
             {{ session('msg') }}
         </div>
     @endif
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <div>
+                        @if($breadcrumb)
+                            <section class="content-header">
+                                <h1>{{ $page }}</h1>
+                                <ol class="breadcrumb">
+                                    @foreach($breadcrumb as $key => $value)
+                                        @if($value->url)
+                                            <li class="breadcrumb-item"><a
+                                                        href="{{route($value->url)}}">{{ $value->title }}</a></li>
 
-    @if($breadcrumb)
+                                        @else
+                                            <li class="breadcrumb-item active"
+                                                aria-current="page">{{ $value->title }}</li>
+                                        @endif
+                                    @endforeach
+                                </ol>
+                            </section>
 
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
+                        @endif
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
 
-                @foreach($breadcrumb as $key => $value)
-                    @if($value->url)
-                        <li class="breadcrumb-item"><a href="{{route($value->url)}}">{{ $value->title }}</a></li>
+                    @if($list)
+                        <div>
+                            <form class="form-inline" method="GET" action="{{route($routeName.'.index')}}">
 
-                    @else
-                        <li class="breadcrumb-item active" aria-current="page">{{ $value->title }}</li>
+                                <div class="form-group mb-2">
+                                    <a href="{{ route($routeName.'.create')  }}">@lang('lacc.new_record')</a>
+                                </div>
+
+                                <div class="form-group mx-sm-3">
+                                    <input type="search" name="search" value="{{$search}}" class="form-control"
+                                           placeholder="@lang('lacc.search')">
+                                </div>
+                                <button type="submit" class="btn btn-primary">@lang('lacc.search')</button>
+                                <a href="{{ route($routeName.'.index') }}"
+                                   class="btn btn-info">@lang('lacc.clear')</a>
+                            </form>
+                        </div>
                     @endif
-                @endforeach
-            </ol>
-        </nav>
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            @foreach($columnList as $key => $value)
+                                <th scope="col">{{ $value  }}</th>
+                            @endforeach
+                            <th scope="col">Ações</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($list as $key => $value)
+                            <tr>
+                                @foreach($columnList as $key2 => $value2)
+                                    @if($key2 == 'id')
+                                        <th scope="row"> @php  echo $value->{$key2} @endphp </th>
+                                    @else
+                                        <td>  @php  echo $value->{$key2} @endphp  </td>
+                                    @endif
 
-    @endif
-
-    <form class="form-inline" method="GET" action="{{route($routeName.'.index')}}">
-
-        <div class="form-group mb-2">
-            <a href="{{ route($routeName.'.create')  }}">@lang('lacc.new_record')</a>
-        </div>
-
-        <div class="form-group mx-sm-3 mb-2">
-            <input type="search" name="search" value="{{$search}}" class="form-control"
-                   placeholder="@lang('lacc.search')">
-        </div>
-        <button type="submit" class="btn btn-primary mb-2">@lang('lacc.search')</button>
-        <a href="{{ route($routeName.'.index') }}"
-           class="btn btn-warning mb-2 ml-2">@lang('lacc.clear')</a>
-    </form>
+                                @endforeach
 
 
-    <table class="table">
-        <thead>
-        <tr>
-            @foreach($columnList as $key => $value)
-                <th scope="col">{{ $value  }}</th>
-            @endforeach
-            <th scope="col">Ações</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($list as $key => $value)
-            <tr>
-                @foreach($columnList as $key2 => $value2)
-                    @if($key2 == 'id')
-                        <th scope="row"> @php  echo $value->{$key2} @endphp </th>
-                    @else
-                        <td>  @php  echo $value->{$key2} @endphp  </td>
+                                <td>
+                                    <a href="{{ route($routeName.'.show',$value->id) }}">
+                                        <i style="color: #ff851b;" class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
+
+                                    <a href="{{ route($routeName.'.edit',$value->id) }}">
+                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    </a>
+
+                                    <a href="{{ route($routeName.'.show',[$value->id, 'delete=1']) }}"
+                                       title="Delete Role">
+                                        <i style="color: #900;" class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </a>
+
+                                </td>
+                            </tr>
+                        @endforeach
+                        
+                        </tbody>
+                    </table>
+                    @if(!$search && $list)
+                        <div class="paginate">
+                            {{$list->links()}}
+                        </div>
                     @endif
-                @endforeach
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
 
-                <td>
-                    <a href="{{ route($routeName.'.show',$value->id) }}" title="View Detail Permission">
-                        <i style="color:black" class="material-icons">pageview</i>
-                    </a>
-
-                    <a href="{{ route($routeName.'.edit',$value->id) }}" title="Alter Permission">
-                        <i style="color:orange" class="material-icons">edit</i>
-                    </a>
-
-                    <a href="{{ route($routeName.'.show',[$value->id, 'delete=1']) }}" title="Delete Permission">
-                        <i style="color:red" class="material-icons">delete_forever</i>
-                    </a>
-                </td>
-            </tr>
-        @endforeach
-
-
-        </tbody>
-    </table>
-
-    @if(!$search && $list)
-        <div class="paginate">
-            {{$list->links()}}
         </div>
-    @endif
+        <!-- /.col -->
+    </div>
 @endsection
