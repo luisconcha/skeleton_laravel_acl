@@ -46,7 +46,7 @@
                 </ul>
             </li>
 
-            @can(['users-admin', 'users-admin/list'])
+            @can(['users-admin'])
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-lock"></i>

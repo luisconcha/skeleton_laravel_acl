@@ -277,9 +277,9 @@ class RoleController extends Controller
     public function updatePermissions( Request $request, $id )
     {
         $data = $request->only( 'permissions' );
-
+     
         $this->model->rulesPermissions( $data );
-
+                          
         $this->model->updatePermissions( $data, $id ) ?
             createMessage( 'msg', 'success', trans( 'lacc.permissions_assigned_successfully' ) )
             :

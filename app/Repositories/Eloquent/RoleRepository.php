@@ -51,10 +51,13 @@ class RoleRepository extends AbstractRepository implements RoleRepositoryInterfa
     public function updatePermissions( array $data, int $id )
     {
         $model = $this->model->find( $id );
-        
-        if ( isset( $data[ 'permissions' ] ) && $model  ) {
+
+        if ( isset( $data[ 'permissions' ] ) && $model ) {
             $model->permissions()->sync( $data[ 'permissions' ] );
+        } elseif ( !isset( $data[ 'permissions' ] ) && $model ) {
+            $model->permissions()->sync( $data );
         }
+
 
         return $model;
     }
