@@ -34,8 +34,7 @@ class RoleRepository extends AbstractRepository implements RoleRepositoryInterfa
     public function rulesPermissions( $data )
     {
         return Validator::make( $data, [
-            'permissions'   => 'required|array',
-            'permissions.*' => 'exists:permissions,id',
+            'permissions.*id' => 'required|array',
         ] )->validate();
     }
 
@@ -48,17 +47,28 @@ class RoleRepository extends AbstractRepository implements RoleRepositoryInterfa
         }
     }
 
-    public function updatePermissions( array $data, int $id )
+    public function updatePermissions( array $data, int $id ): Bool
     {
-        $model = $this->model->find( $id );
+        $model = $this->find( $id );
 
-        if ( isset( $data[ 'permissions' ] ) && $model ) {
-            $model->permissions()->sync( $data[ 'permissions' ] );
-        } elseif ( !isset( $data[ 'permissions' ] ) && $model ) {
-            $model->permissions()->sync( $data );
+        if ( $model ) {
+            $permissions = $model->permissions;
+
+            if ( count( $permissions ) ) {
+                foreach ( $permissions as $key => $value ) {
+                    $model->permissions()->detach( $value->id );
+                }
+            }
+
+            if ( isset( $data[ 'permissions' ] ) && count( $data[ 'permissions' ] ) ) {
+                foreach ( $data[ 'permissions' ] as $key => $value ) {
+                    $model->permissions()->attach( $value );
+                }
+            }
+
+            return (bool)$model->update( $data );
+        } else {
+            return false;
         }
-
-
-        return $model;
     }
 }
