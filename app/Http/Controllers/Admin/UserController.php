@@ -12,7 +12,7 @@ use App\Annotations\Mapping as Permission;
 
 /**
  * Class UserController
- * @package App\Http\Controllers
+ * @package App\Http\Controllers\Admin
  * @Permission\Controller(name="users-admin", description="Adminstração de usuários")
  */
 class UserController extends Controller

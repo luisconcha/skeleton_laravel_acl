@@ -47,4 +47,7 @@ Route::prefix( 'admin' )->middleware( [ 'auth', 'auth.resource' ] )->namespace( 
     Route::resource( 'roles', 'RoleController' );
     Route::get( '/roles/{id}/permissions', 'RoleController@editPermissions' )->name( 'roles.permissions.edit' );
     Route::put( '/roles/{id}/permissions', 'RoleController@updatePermissions' )->name( 'roles.permissions.update' );
+
+    Route::resource( 'rh', 'RhController' );
+    Route::resource( 'armazem', 'ArmazemController' );
 } );

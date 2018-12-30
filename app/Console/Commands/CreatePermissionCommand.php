@@ -43,7 +43,6 @@ class CreatePermissionCommand extends Command
      */
     public function handle()
     {
-        // TODO implementar Repositories e Interface do Permission
         $permissions = $this->permissionReader->getPermissions();
 
         foreach ( $permissions as $permission ):
@@ -55,7 +54,6 @@ class CreatePermissionCommand extends Command
         $this->info( "<info>Permissões carregadas com sucesso!</info>" );
     }
 
-    // TODO implementar Repositories e Interface do Permission
     private function existPermission( $permission )
     {
         $permission = Permission::where( [

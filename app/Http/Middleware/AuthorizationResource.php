@@ -17,8 +17,6 @@ use App\Annotations\PermissionReader;
 use Closure;
 use Illuminate\Auth\Access\AuthorizationException;
 
-//use Illuminate\Support\Facades\Gate;
-
 class AuthorizationResource
 {
     /**

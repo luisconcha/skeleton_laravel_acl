@@ -6,7 +6,7 @@
  * Language: PHP
  * Date: 26/12/18
  * Time: 11:35
- * Project: laravel56_acl
+ * Project: skeleton_laravel_acl
  * Copyright: 2018
  */
 
