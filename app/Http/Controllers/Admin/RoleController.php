@@ -250,7 +250,7 @@ class RoleController extends Controller
     {
         $role      = $this->model->find( $id );
         $routeName = $this->route;
-        $page      = trans( 'lacc.edit_permissions' );
+        $page      = trans( 'lacc.permission_list' );
         $page2     = 'Permissoes de: ';
 
         $permissions      = $this->modelPermissionRepository->findPermissionsResources();

@@ -35,10 +35,7 @@ class AuthServiceProvider extends ServiceProvider
                 return true;
             }
         } );
-
-//        Gate::define( 'update-user', function ( $user, $book ) {
-//            return $user->id == $book->author_id;
-//        } );
+        
 
         /** $var PermissionRepositoryInterface $permissionRepository */
         $permissionRepository = app( PermissionRepositoryInterface::class );
