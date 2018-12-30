@@ -23,7 +23,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 
+        'name', 'email', 'password',
     ];
     /**
      * The attributes that should be hidden for arrays.
@@ -53,11 +53,9 @@ class User extends Authenticatable
 
     public function hasRole( $role )
     {
-        if ( is_string( $role ) ) {
-            $role = Role::where( 'name', '=', $role )->firstOrFail();
-        }
-
-        return (boolean)$this->roles()->find( $role->id );
+        return is_string( $role ) ?
+            $this->roles->contains( 'name', $role ) :
+            (boolean)$role->intersect( $this->roles )->count();
     }
 
     public function getColumnsFillable()

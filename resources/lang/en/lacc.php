@@ -46,6 +46,7 @@ return [
     'create_or_edit'       => 'Create or edit',
     'role_list'            => 'Roles',
     'role'                 => 'Role',
+    'not_authorized'       => 'You\'are not authorized to access this feature.',
 
     'record_added_successfully'           => 'Record added successfully!',
     'record_adding_record'                => 'Error adding record!',

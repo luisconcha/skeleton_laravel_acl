@@ -27,7 +27,7 @@ Auth::routes();
 
 Route::middleware( 'auth' )->group( function () {
     Route::get( '/', function () {
-       return  redirect( 'home' );
+        return redirect( 'home' );
     } );
     Route::get( '/home', 'HomeController@index' )->name( 'home' );
 } );
@@ -39,7 +39,7 @@ Route::middleware( 'auth' )->group( function () {
 /*************************
  * ROUTAS PARA ADMIN
  *************************/
-Route::prefix( 'admin' )->middleware( 'auth' )->namespace( 'Admin' )->group( function () {
+Route::prefix( 'admin' )->middleware( [ 'auth', 'auth.resource' ] )->namespace( 'Admin' )->group( function () {
 
     Route::resource( 'users', 'UserController' );
     Route::resource( 'permissions', 'PermissionController' );

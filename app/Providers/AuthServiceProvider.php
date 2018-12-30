@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Repositories\Contracts\PermissionRepositoryInterface;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -34,9 +35,18 @@ class AuthServiceProvider extends ServiceProvider
                 return true;
             }
         } );
-        
+
 //        Gate::define( 'update-user', function ( $user, $book ) {
 //            return $user->id == $book->author_id;
 //        } );
+
+        /** $var PermissionRepositoryInterface $permissionRepository */
+        $permissionRepository = app( PermissionRepositoryInterface::class );
+        $permissions          = $permissionRepository->findPermissionsResources();
+        foreach ( $permissions as $p ):
+            Gate::define( "{$p->name}/{$p->resource_name}", function ( $user ) use ( $p ) {
+                return $user->hasRole( $p->roles );
+            } );
+        endforeach;
     }
 }

@@ -45,6 +45,7 @@ return [
     'create_or_edit'       => 'Crear o editar',
     'role_list'            => 'Papeles',
     'role'                 => 'Papel',
+    'not_authorized'       => 'No está autorizado para accesder a este recurso.',
 
     'record_added_successfully'           => 'Registro agregado com éxito!',
     'record_adding_record'                => 'Error al agregar registro!',
