@@ -28,6 +28,14 @@ class CreateAclData extends Migration
 
         $userVisitor = \App\Models\User::where( 'email', env( 'USER_VISITOR_EMAIL', 'visitor@user.com' ) )->first();
         $userVisitor->roles()->save( $roleVisitor );
+
+        $roleManager = \App\Models\Role::create( [
+            'name'        => env( 'ROLE_MANGER', 'Manager' ),
+            'description' => 'Papel do usuário gerente do sistema',
+        ] );
+
+        $userManager = \App\Models\User::where( 'email', env( 'USER_MANGER_EMAIL', 'manager@user.com' ) )->first();
+        $userManager->roles()->save( $roleManager );
     }
 
     /**
@@ -51,5 +59,12 @@ class CreateAclData extends Migration
         $roleVisitor->permissions()->detach();
         $roleVisitor->users()->detach();
         $roleVisitor->delete();
+
+        $roleManager = \App\Models\Role::where( 'name', env( 'ROLE_MANAGER', 'Manager' ) )->first();
+        $manager     = \App\Models\User::where( 'email', env( 'USER_MANAGER_EMAIL', 'manager@user.com' ) )->first();
+        $manager->roles()->detach( $roleManager->id );
+        $roleManager->permissions()->detach();
+        $roleManager->users()->detach();
+        $roleManager->delete();
     }
 }

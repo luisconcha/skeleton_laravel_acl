@@ -14,7 +14,7 @@ class CreateUsersData extends Migration
     {
         \App\Models\User::create( [
             'name'     => env( 'USER_ADMIN_NAME', 'Administrator' ),
-            'email'    => env( 'USER_ADMIN_EMAIL', 'admin@user.com' ),
+            'email'    => env( 'USER_ADMIN_EMAIL', 'administrator@user.com' ),
             'password' => env( Hash::make( 'USER_ADMIN_PASSWORD' ), Hash::make( '123456' ) ),
         ] );
 
@@ -38,13 +38,13 @@ class CreateUsersData extends Migration
      */
     public function down()
     {
-        $admin = \App\Models\User::where( 'email', 'admin@user.com' )->first();
+        $admin = \App\Models\User::where( 'email', env( 'USER_ADMIN_EMAIL', 'administrator@user.com' ) )->first();
         $admin->delete();
 
-        $gerente = \App\Models\User::where( 'email', 'gerente@user.com' )->first();
+        $gerente = \App\Models\User::where( 'email', env( 'USER_MANAGER_EMAIL', 'manager@user.com' ) )->first();
         $gerente->delete();
 
-        $visitante = \App\Models\User::where( 'email', 'visitante@user.com' )->first();
+        $visitante = \App\Models\User::where( 'email', env( 'USER_VISITOR_EMAIL', 'visitor@user.com' ) )->first();
         $visitante->delete();
 
     }
