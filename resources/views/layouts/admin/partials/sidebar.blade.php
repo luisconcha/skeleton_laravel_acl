@@ -35,74 +35,44 @@
         </form>
 
         <ul class="sidebar-menu" data-widget="tree">
-            <li class="header">MAIN NAVIGATION</li>
-            <li class="treeview active">
-                <a href="#">
-                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{{ route('home') }}"><i class="fa fa-circle-o"></i> Reports</a></li>
-                </ul>
-            </li>
+            <li class="header">{{ __('lacc.system_menus') }}</li>
 
-            @can(['users-admin'])
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-lock"></i>
-                        <span>Security</span>
-                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{ route('permissions.index') }}"><i class="fa fa-circle-o"></i> Permissions</a>
-                        </li>
-                        <li><a href="{{ route('roles.index') }}"><i class="fa fa-circle-o"></i> Roles</a></li>
-                    </ul>
-                </li>
+            @php $links = NavbarAuthorization::getLinksAuthorized(); @endphp
 
+            @foreach($links as $link)
 
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-users"></i> <span>Users</span>
-                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li>
-                            <a href="{{ route('users.index') }}">
-                                <i class="fa fa-circle-o"></i> {{ __('lacc.user_list') }}
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            @endcan
+                @can($link['permission'])
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-{{ $link['icon'] }}"></i>
+                            <span>{{ $link['title'] }}</span>
+                            <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                        </a>
 
-            @can(['rh-admin/list'])
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-lock"></i>
-                        <span>Recursos Humanos</span>
-                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{ route('rh.index') }}"><i class="fa fa-circle-o"></i> RH</a>
-                        </li>
-                    </ul>
-                </li>
-            @endcan
+                        @if (isset($link['sub_menus']) && count($link['sub_menus']))
+                            <ul class="treeview-menu">
+                                @foreach($link['sub_menus'] as $submenu)
 
-            @can(['armazem-admin/list'])
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-lock"></i>
-                        <span>Armazém</span>
-                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{ route('armazem.index') }}"><i class="fa fa-circle-o"></i> Lista Armazém</a>
-                        </li>
-                    </ul>
-                </li>
-            @endcan
+                                    @can($submenu['permission'])
+                                        <li>
+                                            <a href="{{ $submenu['link'] }}">
+                                                <i class="fa fa-circle-o"></i> {{ $submenu['title'] }}</a>
+                                        </li>
+                                    @endcan
+                                @endforeach
+                            </ul>
+                        @else
+                            <ul class="treeview-menu">
+                                <li>
+                                    <a href="{{ $link['link'] }}"><i class="fa fa-circle-o"></i> List</a>
+                                </li>
+                            </ul>
+
+                        @endif
+
+                    </li>
+                @endcan
+            @endforeach
         </ul>
     </section>
 </aside>

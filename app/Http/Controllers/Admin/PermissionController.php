@@ -11,7 +11,7 @@ use App\Annotations\Mapping as Permission;
 /**
  * Class PermissionController
  * @package App\Http\Controllers
- * @Permission\Controller(name="permissions-admin", description="Adminstração de permissões")
+ * @Permission\Controller(name="permission-admin", description="Adminstração de permissões")
  */
 class PermissionController extends Controller
 {

@@ -47,6 +47,7 @@ return [
     'role_list'            => 'Roles',
     'role'                 => 'Role',
     'not_authorized'       => 'You\'are not authorized to access this feature.',
+    'system_menus'         => 'System menus',
 
     'record_added_successfully'           => 'Record added successfully!',
     'record_adding_record'                => 'Error adding record!',

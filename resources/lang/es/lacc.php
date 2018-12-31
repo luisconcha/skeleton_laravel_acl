@@ -46,6 +46,7 @@ return [
     'role_list'            => 'Papeles',
     'role'                 => 'Papel',
     'not_authorized'       => 'No está autorizado para accesder a este recurso.',
+    'system_menus'         => 'Menús del sistema.',
 
     'record_added_successfully'           => 'Registro agregado com éxito!',
     'record_adding_record'                => 'Error al agregar registro!',

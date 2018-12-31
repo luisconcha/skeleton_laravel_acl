@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Menu\NavBar;
 use App\Repositories\Contracts\RoleRepositoryInterface;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ use App\Annotations\Mapping as Permission;
 /**
  * Class UserController
  * @package App\Http\Controllers\Admin
- * @Permission\Controller(name="users-admin", description="Adminstração de usuários")
+ * @Permission\Controller(name="user-admin", description="Adminstração de usuários")
  */
 class UserController extends Controller
 {

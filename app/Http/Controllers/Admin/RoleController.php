@@ -13,7 +13,7 @@ use App\Annotations\Mapping as Permission;
 /**
  * Class RoleController
  * @package App\Http\Controllers
- * @Permission\Controller(name="roles-admin", description="Adminstração de papeis de usuário")
+ * @Permission\Controller(name="role-admin", description="Adminstração de papeis de usuário")
  */
 class RoleController extends Controller
 {
